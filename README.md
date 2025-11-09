@@ -1,218 +1,100 @@
-// Aguarda o DOM carregar completamente
-document.addEventListener('DOMContentLoaded', function() {
-    // Elementos do DOM
-    const navToggle = document.querySelector('.nav-toggle');
-    const navMenu = document.querySelector('.nav-menu');
-    const navLinks = document.querySelectorAll('.nav-menu a');
-    const contactForm = document.querySelector('.contact-form');
-    const ctaButton = document.querySelector('.cta-button');
-
-    // Menu Mobile Toggle
-    if (navToggle && navMenu) {
-        navToggle.addEventListener('click', function() {
-            navMenu.classList.toggle('active');
-            navToggle.classList.toggle('active');
-        });
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Protocolo Ciero Vientre</title>
+  <meta name="description" content="Transforma tu abdomen y tu vida con el Protocolo Ciero Vientre. Un método 100% natural para reducir grasa abdominal, mejorar tu salud y recuperar tu autoestima.">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif;}
+    body {background: linear-gradient(135deg, #ff9966, #ff5e99); color: #333; line-height: 1.6;}
+    header {text-align: center; color: white; padding: 60px 20px;}
+    header h1 {font-size: 2.5rem; margin-bottom: 10px;}
+    header p {font-size: 1.1rem; max-width: 600px; margin: 0 auto;}
+    .container {max-width: 1100px; margin: 40px auto; padding: 20px; background: #fff; border-radius: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.1);}
+    .video {text-align: center; margin-bottom: 40px;}
+    .benefits {display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 40px;}
+    .benefit {background: linear-gradient(135deg, #ff9966, #ff5e99); color: white; padding: 25px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);}
+    .benefit h3 {margin-bottom: 10px;}
+    .before-after {display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin-top: 40px;}
+    .before-after img {width: 280px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.2);}
+    .cta {text-align: center; margin-top: 40px;}
+    .cta a {background: linear-gradient(135deg, #ff9966, #ff5e99); color: white; padding: 18px 50px; border-radius: 8px; font-size: 1.1rem; text-decoration: none; font-weight: 600; transition: opacity 0.3s;}
+    .cta a:hover {opacity: 0.85;}
+    footer {text-align: center; background: #ff5e99; color: white; padding: 30px 10px; margin-top: 60px;}
+    /* Botón flotante (móvil) */
+    .floating-btn {
+      position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+      background: linear-gradient(135deg, #ff9966, #ff5e99);
+      color: white; padding: 15px 40px; border-radius: 50px;
+      font-size: 1rem; font-weight: 600; text-decoration: none;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      z-index: 999; display: none;
     }
-
-    // Fechar menu ao clicar em um link
-    navLinks.forEach(link => {
-        link.addEventListener('click', function() {
-            if (navMenu && navToggle) {
-                navMenu.classList.remove('active');
-                navToggle.classList.remove('active');
-            }
-        });
-    });
-
-    // Smooth scroll para links internos
-    navLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            const targetId = this.getAttribute('href');
-            const targetElement = document.querySelector(targetId);
-            
-            if (targetElement) {
-                const offsetTop = targetElement.offsetTop - 80; // Ajuste para o header fixo
-                
-                window.scrollTo({
-                    top: offsetTop,
-                    behavior: 'smooth'
-                });
-            }
-        });
-    });
-
-    // Manipulação do formulário de contato
-    if (contactForm) {
-        contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Coletar dados do formulário
-            const formData = new FormData(this);
-            const name = formData.get('name') || this.querySelector('input[type="text"]').value;
-            const email = formData.get('email') || this.querySelector('input[type="email"]').value;
-            const message = formData.get('message') || this.querySelector('textarea').value;
-            
-            // Validação básica
-            if (!name || !email || !message) {
-                showNotification('Por favor, preencha todos os campos.', 'error');
-                return;
-            }
-            
-            if (!isValidEmail(email)) {
-                showNotification('Por favor, insira um email válido.', 'error');
-                return;
-            }
-            
-            // Simular envio (substituir por sua API)
-            simulateFormSubmission(name, email, message);
-        });
+    @media (max-width: 768px) {
+      .floating-btn {display: inline-block;}
     }
+  </style>
+</head>
+<body>
 
-    // CTA Button handler
-    if (ctaButton) {
-        ctaButton.addEventListener('click', function() {
-            const contactSection = document.getElementById('contact');
-            if (contactSection) {
-                const offsetTop = contactSection.offsetTop - 80;
-                window.scrollTo({
-                    top: offsetTop,
-                    behavior: 'smooth'
-                });
-            }
-        });
-    }
+  <header>
+    <h1>Protocolo Ciero Vientre</h1>
+    <p>Transforma tu abdomen y recupera tu confianza con un método natural y comprobado.</p>
+  </header>
 
-    // Header scroll effect
-    let lastScrollY = window.scrollY;
-    const header = document.querySelector('.header');
+  <div class="container">
+    <div class="video">
+      <!-- 🎬 VIDEO VTURB -->
+      <vturb-smartplayer id="vid-690e2f041a078823fdadef1c" style="display: block; margin: 0 auto; width: 100%; max-width: 600px;"></vturb-smartplayer>
+      <script type="text/javascript">
+        var s=document.createElement("script");
+        s.src="https://scripts.converteai.net/b54b1210-b65c-436b-ae22-a4d4fda71a39/players/690e2f041a078823fdadef1c/v4/player.js";
+        s.async=!0;document.head.appendChild(s);
+      </script>
+    </div>
 
-    window.addEventListener('scroll', function() {
-        if (header) {
-            if (window.scrollY > 100) {
-                header.style.background = 'rgba(255, 255, 255, 0.95)';
-                header.style.backdropFilter = 'blur(10px)';
-            } else {
-                header.style.background = 'var(--white)';
-                header.style.backdropFilter = 'none';
-            }
+    <section>
+      <h2 style="text-align:center; color:#ff5e99; font-size:1.8rem;">🌿 ¿Qué es el Protocolo Ciero Vientre?</h2>
+      <p style="text-align:center; margin-top:15px;">Un programa revolucionario que combina alimentación inteligente, rutinas simples y técnicas naturales para reducir grasa abdominal y mejorar tu bienestar general.</p>
+    </section>
 
-            // Hide/show header on scroll
-            if (window.scrollY > lastScrollY && window.scrollY > 100) {
-                header.style.transform = 'translateY(-100%)';
-            } else {
-                header.style.transform = 'translateY(0)';
-            }
-            
-            lastScrollY = window.scrollY;
-        }
-    });
+    <section class="benefits">
+      <div class="benefit">
+        <h3>🔥 Elimina la grasa abdominal</h3>
+        <p>Reduce centímetros de cintura con un enfoque saludable y efectivo.</p>
+      </div>
+      <div class="benefit">
+        <h3>💆‍♀️ Mejora tu bienestar</h3>
+        <p>Restaura el equilibrio entre cuerpo y mente, aliviando el estrés.</p>
+      </div>
+      <div class="benefit">
+        <h3>🥗 Alimentación consciente</h3>
+        <p>Descubre cómo nutrir tu cuerpo con alimentos que aceleran tu metabolismo.</p>
+      </div>
+    </section>
 
-    // Intersection Observer para animações
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
+    <section class="before-after">
+      <img src="https://i.imgur.com/fX5Qhbd.jpg" alt="Antes - mujer con sobrepeso">
+      <img src="https://i.imgur.com/FpGvhXe.jpg" alt="Después - mujer con vientre plano">
+    </section>
 
-    const observer = new IntersectionObserver(function(entries) {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-            }
-        });
-    }, observerOptions);
+    <div class="cta">
+      <a href="https://pay.hotmart.com/X102804891T?off=27ogaj6g&checkoutMode=10" target="_blank">
+        👉 QUIERO MI NUEVO CUERPO AHORA
+      </a>
+    </div>
+  </div>
 
-    // Observar elementos para animação
-    const animateElements = document.querySelectorAll('.about-item, .service-card');
-    animateElements.forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(30px)';
-        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-        observer.observe(el);
-    });
+  <!-- Botón flotante en móvil -->
+  <a href="https://pay.hotmart.com/X102804891T?off=27ogaj6g&checkoutMode=10" target="_blank" class="floating-btn">
+    💥 OBTÉN ACCESO AHORA
+  </a>
 
-    // Funções auxiliares
-    function isValidEmail(email) {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return emailRegex.test(email);
-    }
+  <footer>
+    <p>© 2025 Protocolo Ciero Vientre | Todos los derechos reservados</p>
+  </footer>
 
-    function showNotification(message, type = 'success') {
-        // Criar elemento de notificação
-        const notification = document.createElement('div');
-        notification.className = `notification ${type}`;
-        notification.textContent = message;
-        notification.style.cssText = `
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 15px 20px;
-            background: ${type === 'error' ? '#e74c3c' : '#2ecc71'};
-            color: white;
-            border-radius: 5px;
-            z-index: 10000;
-            transform: translateX(100%);
-            transition: transform 0.3s ease;
-        `;
-
-        document.body.appendChild(notification);
-
-        // Animar entrada
-        setTimeout(() => {
-            notification.style.transform = 'translateX(0)';
-        }, 100);
-
-        // Remover após 5 segundos
-        setTimeout(() => {
-            notification.style.transform = 'translateX(100%)';
-            setTimeout(() => {
-                if (notification.parentNode) {
-                    notification.parentNode.removeChild(notification);
-                }
-            }, 300);
-        }, 5000);
-    }
-
-    function simulateFormSubmission(name, email, message) {
-        // Mostrar loading
-        const submitButton = contactForm.querySelector('button[type="submit"]');
-        const originalText = submitButton.textContent;
-        submitButton.textContent = 'Enviando...';
-        submitButton.disabled = true;
-
-        // Simular delay de rede
-        setTimeout(() => {
-            // Aqui você integraria com seu backend
-            console.log('Dados do formulário:', { name, email, message });
-            
-            // Mostrar sucesso
-            showNotification('Mensagem enviada com sucesso! Entraremos em contato em breve.');
-            
-            // Resetar formulário
-            contactForm.reset();
-            
-            // Restaurar botão
-            submitButton.textContent = originalText;
-            submitButton.disabled = false;
-        }, 2000);
-    }
-
-    // Prevenir erros de elementos não encontrados
-    console.log('Script carregado com sucesso. Elementos encontrados:', {
-        navToggle: !!navToggle,
-        navMenu: !!navMenu,
-        contactForm: !!contactForm,
-        ctaButton: !!ctaButton
-    });
-});
-
-// Fallback para browsers antigos
-if (typeof window !== 'undefined') {
-    // Polyfill para NodeList.forEach
-    if (window.NodeList && !NodeList.prototype.forEach) {
-        NodeList.prototype.forEach = Array.prototype.forEach;
-    }
-}
+</body>
+</html>
